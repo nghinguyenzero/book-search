@@ -4,9 +4,8 @@ import BookContainer from './../../containers/BookContainer';
 import SearchContainer from './../../containers/SearchContainer';
 import { connect } from "react-redux";
 
-
-class HomePage extends Component {
-  render() {
+class HomePage extends Component { 
+  render() { 
     var { books } = this.props;
     return (
       <div id="wrapper" >
@@ -19,8 +18,6 @@ class HomePage extends Component {
         <Books>
           {this.showNewsList(books)}
         </Books>
-        <div className="text-center mb-10 mt-10">
-        </div>
       </div>
     );
   }
@@ -40,7 +37,7 @@ class HomePage extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = state => { 
   return {
     keyword: state.keyword, books: state.books
   };

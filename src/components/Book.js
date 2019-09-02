@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 const Book = (props) => {
     var { book } = props;
     var { authors, publisher, publishedDate, subtitle, imageLinks, previewLink, title } = props.book.volumeInfo;
-    var onAddFavoriteCom = (book) => {
-        this.props.onAddFavorite(book);
-    }
 
+    var onDetailBookCom = (book) => {
+        props.onDetailBook(book);
+    }
     return (
         <div className="book">
             <div className="book__title">
@@ -18,20 +18,18 @@ const Book = (props) => {
                 src={imageLinks.thumbnail}
                 alt={title}
                 className="book__img"></img>
-                <div className="book__desc">
-                    <div className="book__field" title="author"><strong>Author:</strong> {authors}</div>
-                    <div className="book__field"><strong>Publisher:</strong> {publisher}</div>
-                    <div className="book__field"><strong>Published:</strong> {publishedDate}</div>
-                    <div className="book__field">{subtitle}</div>
-                    <Link
-                        to={`/books/${book.id}`}
-                        className="btn btn-primary display-4"
-                    >View</Link>
-                    <div className="btn btn-primary display-4"
-                        onClick={() => onAddFavoriteCom(book)}>
-                        add favorite
-                          </div>
-                </div>
+            </div>
+            <div className="book__desc">
+                <div className="book__field" title="author"><strong>Author:</strong> {authors}</div>
+                <div className="book__field"><strong>Publisher:</strong> {publisher}</div>
+                <div className="book__field"><strong>Published:</strong> {publishedDate}</div>
+                <div className="book__field">{subtitle}</div>
+                <Link
+                    to={`/books/${book.id}`}
+                    className="btn btn-primary display-4  mr-10 mt-10"
+                    onClick={() => onDetailBookCom(book)}
+                >View</Link>
+
             </div>
         </div>
     );

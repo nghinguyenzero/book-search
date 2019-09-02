@@ -7,7 +7,7 @@ class FavoriteBooksPage extends Component {
   render() {
     var { favoriteBooks } = this.props;
     return (
-      <div>
+      <div id="wrapper" >
         <Books>
           {this.showFavoriteBooks(favoriteBooks)}
         </Books>

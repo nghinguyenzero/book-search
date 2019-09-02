@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { actAddToFavorite } from '../actions';
+import { actAddToFavorite, actDetailBook } from '../actions';
 import Book from "./../components/Book";
 
 class BookContainer extends Component {
@@ -8,23 +8,23 @@ class BookContainer extends Component {
         var { book } = this.props;
         return (
            <Book
-           onAddFavorite={this.onAddFavorite}
-           onViewDetail={this.onViewDetail}
+           onDetailBook={this.onDetailBook}
            book={book}
            />
         );
     }
 
-    onAddFavorite = (book) => {
-        this.props.onAddFavorite(book);
+    onDetailBook = (book) => {
+        this.props.onDetailBook(book);
     }
+
 }
 
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        onAddFavorite: (book) => {
-            dispatch(actAddToFavorite(book));
+        onDetailBook: (book) => {
+            dispatch(actDetailBook(book));
         }
     }
 }

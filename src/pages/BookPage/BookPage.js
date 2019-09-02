@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import { actGetBookRequest } from "../../actions/index";
 import { actAddToFavorite } from '../../actions/index';
 import BookDetail from "./../../components/BookDetail";
-import {findIndex } from 'lodash';
 
 class BookPage extends Component {
-  componentWillMount() {
+  componenWillMount() {
+   
     var { match, books } = this.props;
     if (match) {
       var id = match.params.id;
@@ -14,38 +14,26 @@ class BookPage extends Component {
     }
   }
   render() {
-    var { books,match } = this.props;
-    // console.log(5, this.props);
-    var id = match.params.id;
-
-     let index = findIndex(books, function(o) { return o.id == id; });
-     if(index>0){
-        let book =  books[index];
+    var { book , match } = this.props;
       return ( <div>
         <BookDetail
-          book={book}
+          book={book={}?JSON.parse(localStorage.getItem('book')):book}
         />
         </div>
     );
-
-     }
-     else {
-       return (<div>dddddddddd</div>);
-     }
-
   }
   onAddFavorite = (book) => {
     this.props.onAddFavorite(book);
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = state => { 
   return { book: state.book, books: state.books }
 }
 
-const mapDispatchToProps = (dispatch, props) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onGetBook: (books, id) => {
+    onGetBook: (books, id) => {  
       dispatch(actGetBookRequest(books, id));
     },
     onAddFavorite: (book) => {

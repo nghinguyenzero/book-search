@@ -9,11 +9,7 @@ class App extends Component {
     return (
       <Router>
         <Menu></Menu>
-        <div className="container">
-          <div className="row">
             {this.showContentMenu(routes)}
-          </div>
-        </div>
       </Router>
     );
   }
