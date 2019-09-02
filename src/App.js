@@ -14,7 +14,6 @@ class App extends Component {
             {this.showContentMenu(routes)}
           </div>
         </div>
-
       </Router>
     );
   }
@@ -29,7 +28,6 @@ class App extends Component {
           component={route.main}
         />);
       })
-
     }
     return <Switch>{result}</Switch>;
   }

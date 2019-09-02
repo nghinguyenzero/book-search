@@ -1,52 +1,55 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { actGetArticleRequest } from "../../actions/index";
+import { actGetBookRequest } from "../../actions/index";
+import { actAddToFavorite } from '../../actions/index';
+import BookDetail from "./../../components/BookDetail";
+import {findIndex } from 'lodash';
 
 class BookPage extends Component {
-
-  componentDidMount() {
-    var { match, articles } = this.props;
+  componentWillMount() {
+    var { match, books } = this.props;
     if (match) {
       var id = match.params.id;
-      this.props.onGetArticle(articles, id);
+      this.props.onGetBook(books, id);
     }
   }
-
   render() {
-    var { article } = this.props;
-    var date = new Date(article.publishedAt).toLocaleString();
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-12">
-            <h1 className="mt-4">{article.title}</h1>
-            <div className="lead">
-              {article.author}
-            </div>
-            <hr></hr>
-            <div>Posted on {date}</div>
-            <hr></hr>
-            <img className="img-fluid rounded img-article" src={article.urlToImage} alt=""></img>
-            <hr></hr>
-            <div>{article.content}</div>
-            <Link to="/" className="btn btn-danger mr-10 mt-10"> Back
-          </Link>
-          </div>
+    var { books,match } = this.props;
+    // console.log(5, this.props);
+    var id = match.params.id;
+
+     let index = findIndex(books, function(o) { return o.id == id; });
+     if(index>0){
+        let book =  books[index];
+      return ( <div>
+        <BookDetail
+          book={book}
+        />
         </div>
-      </div>
     );
+
+     }
+     else {
+       return (<div>dddddddddd</div>);
+     }
+
+  }
+  onAddFavorite = (book) => {
+    this.props.onAddFavorite(book);
   }
 }
 
 const mapStateToProps = state => {
-  return { article: state.article, articles: state.articles }
+  return { book: state.book, books: state.books }
 }
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    onGetArticle: (articles, id) => {
-      dispatch(actGetArticleRequest(articles, id));
+    onGetBook: (books, id) => {
+      dispatch(actGetBookRequest(books, id));
+    },
+    onAddFavorite: (book) => {
+      dispatch(actAddToFavorite(book));
     }
   }
 }

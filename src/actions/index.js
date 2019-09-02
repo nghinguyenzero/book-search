@@ -1,59 +1,50 @@
 import * as Types from './../constants/ActionTypes';
 import callApi from "./../utils/apiCaller";
+import {findIndex } from 'lodash';
 
-export const actFetchArticlesRequest = () => {
+export const actFetchBooksRequest = (keyword) => {
     return (dispatch) => {
-        return callApi('', 'GET', null).then(res => {
-            dispatch(actFetchArticles(res.data.articles));
+        return callApi(keyword, 'GET', null).then(res => {
+            if(res){
+                dispatch(actFetchBooks(res.data.items));
+            }
         })
     };
 }
-export const actFetchArticles = (articles) => {
+
+export const actFetchBooks = (books) => {
     return {
         type: Types.FETCH_BOOKS,
-        articles
+        books
     }
 }
 
-const findArticle = (articles, id) => {
-    var data = null;
-    if (articles.length > 0) {
-        articles.forEach((item) => {
-            if (item.index === parseInt(id)) {
-                data = item;
-            }
-        });
-    }
-    return data
+export const actAddToFavorite = (book) => {
+    return {
+        type: Types.ADD_FAVORITE_BOOKS,
+        book
+    };
 }
 
-export const actGetArticleRequest = (articles, id) => {
+export const actGetBookRequest = (books, id) => { 
     return (dispatch) => {  
-        var data = findArticle(articles, id);
-        if(data != null) {
-            return dispatch(actGetArticle(data));
+        let index = findIndex(books, function(o) { return o.id == id; });
+        if(index > 0) {
+            return dispatch(actGetBook(books[index]));
         }
     };
 }
 
-export const actGetArticle = (article) => {
+export const actGetBook = (book) => {
     return {
         type: Types.GET_BOOK,
-        article
+        book
     };
 }
 
-export const actAddToHistory = (article) => {
-    return {
-        type: Types.FETCH_FAVORITE_BOOKS,
-        article
-    };
-}
 
-export const actSearchByKey = (keyword) => { 
-    return {
-        type: Types.SEARCH_BY_KEY,
-        keyword
-    }
-}
+
+
+
+
 

@@ -1,28 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import ArticlesViewed from '../../components/ArticlesViewed';
-import ArticleViewed from '../../components/ArticleViewed';
+import Books from './../../components/Books';
+import Book from './../../components/Book';
 
 class FavoriteBooksPage extends Component {
   render() {
-    var { history } = this.props;
-    history.sort( (a, b) => b.timeView - a.timeView);
+    var { favoriteBooks } = this.props;
     return (
       <div>
-        <ArticlesViewed>
-          {this.showHistory(history)}
-        </ArticlesViewed>
+        <Books>
+          {this.showFavoriteBooks(favoriteBooks)}
+        </Books>
       </div>
     );
   }
 
-  showHistory = (history) => {
+  showFavoriteBooks = (favoriteBooks) => {
     var result = null;
-    if (history.length > 0) {
-      result = history.map((article, index) => {
-        return (<ArticleViewed
+    if (favoriteBooks.length > 0) {
+      result = favoriteBooks.map((book, index) => {
+        return (<Book
           key={index}
-          article={article}
+          book={book}
           index={index}
         />)
       })
@@ -30,8 +29,9 @@ class FavoriteBooksPage extends Component {
     return result;
   }
 }
+
 const mapStateToProps = state => {
-  return { history: state.history }
+  return { favoriteBooks: state.favoriteBooks }
 }
 
 export default connect(mapStateToProps, null)(FavoriteBooksPage);

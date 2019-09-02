@@ -17,9 +17,9 @@ const routes =[
         main: () =><FavoriteBooksPage/>
     },
     {
-        path:'/articles/:id',
+        path:'/books/:id',
         exact: true,
-        main: ({match, history}) =><BookPage match={match} history={history}/>
+        main: ({match, history}) =><BookPage match={match}/>
     },
     {
         path:'',

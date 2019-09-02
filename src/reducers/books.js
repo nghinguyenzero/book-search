@@ -1,10 +1,10 @@
 import * as Types from "../constants/ActionTypes";
 
 var initialState = [];
-const articles = (state = initialState, action) => {
+const books = (state = initialState, action) => { 
     switch (action.type) {
         case Types.FETCH_BOOKS:
-            state = action.articles;
+            state = action.books;
             state.map((item, index) => {
                 item['index'] = index;
             });
@@ -13,4 +13,4 @@ const articles = (state = initialState, action) => {
     }
 };
 
-export default articles;
+export default books;

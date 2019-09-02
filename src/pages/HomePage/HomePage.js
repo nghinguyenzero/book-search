@@ -1,67 +1,37 @@
 import React, { Component } from 'react';
-import Articles from './../../components/Articles';
-import Article from './../../components/Article';
-import Search from './../../components/Search';
+import Books from './../../components/Books';
+import BookContainer from './../../containers/BookContainer';
+import SearchContainer from './../../containers/SearchContainer';
 import { connect } from "react-redux";
-import { actFetchArticlesRequest, actSearchByKey } from "./../../actions/index";
-import { filter } from 'lodash';
-import {NUMB_OF_BOOKS} from "./../../constants/ActionTypes";
+
 
 class HomePage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      visible: NUMB_OF_BOOKS,
-    };
-  }
-
-  loadMore() {
-    this.setState((prev) => {
-      return { visible: prev.visible + NUMB_OF_BOOKS };
-    });
-  }
-
-  componentDidMount() {
-    this.props.fetchArticles();
-  }
-
   render() {
-    var { articles, keyword } = this.props;
-    if (keyword) {
-      articles = filter(articles, (article) => {
-        return article.title.toLowerCase().indexOf(keyword) !== -1;
-      });
-    }
-
-    articles.sort(function (a, b) {
-      var c = new Date(a.publishedAt);
-      var d = new Date(b.publishedAt);
-      return d - c;
-    });
-
+    var { books } = this.props;
     return (
-      <div className="container" >
-        <Search />
-        <Articles>
-          {this.showNewsList(articles.slice(0, this.state.visible))}
-        </Articles>
+      <div id="wrapper" >
+        <header>
+          <h1>Book Finder</h1>
+        </header>
+        <div id="content">
+          <SearchContainer />
+        </div>
+        <Books>
+          {this.showNewsList(books)}
+        </Books>
         <div className="text-center mb-10 mt-10">
-          {this.state.visible < articles.length &&
-            <button onClick={() => this.loadMore()} type="button" className="load-more btn btn-large btn-block btn-primary">Load more</button>
-          }
         </div>
       </div>
     );
-
   }
 
-  showNewsList = (articles) => {
+  showNewsList = (books) => {
     var result = null;
-    if (articles.length > 0) {
-      result = articles.map((article, index) => {
-        return (<Article
+    if (books.length > 0) {
+      result = books.map((book, index) => {
+        return (<BookContainer
           key={index}
-          article={article}
+          book={book}
           index={index}
         />)
       })
@@ -72,19 +42,9 @@ class HomePage extends Component {
 
 const mapStateToProps = state => {
   return {
-    keyword: state.keyword, articles: state.articles
+    keyword: state.keyword, books: state.books
   };
 }
 
-const mapDispatchToProps = (dispatch, props) => {
-  return {
-    fetchArticles: () => {
-      dispatch(actFetchArticlesRequest());
-    },
-    onSearchByKey: (keyword) => {
-      dispatch(actSearchByKey(keyword));
-    }
-  };
-}
+export default connect(mapStateToProps, null)(HomePage);
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
