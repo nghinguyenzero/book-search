@@ -4,7 +4,7 @@ import {findIndex } from 'lodash';
 
 export const actFetchBooksRequest = (keyword) => {
     return (dispatch) => {
-        return callApi(keyword, 'GET', null).then(res => {  console.log('res',res);
+        return callApi(keyword, 'GET', null).then(res => {  
             if(res){
                 dispatch(actFetchBooks(res.data.items));
             } 
@@ -36,7 +36,6 @@ export const actDeleteToFavorite = (book) => {
 export const actGetBookRequest = (books, id) => { 
     return (dispatch) => {  
         var data = JSON.parse(localStorage.getItem('book'));
-        console.log('actGetBookRequest',data,id);
         if(data && data.id==id) {
             return dispatch(actGetBook(data));
         } else {
@@ -50,7 +49,7 @@ export const actGetBookRequest = (books, id) => {
     };
 }
 
-export const actGetBook = (book) => { console.log('actGetBook',book);
+export const actGetBook = (book) => { 
     return {
         type: Types.GET_BOOK,
         book
