@@ -10,8 +10,8 @@ const Search = (props) => {
     return (
         <div id="search-block">
             <div className="clear display-block" >
-                <div className="clear__left"></div>
-                <div className="clear__right"></div>
+                {/* <div className="clear__left"></div>
+                <div className="clear__right"></div> */}
             </div>
             <input type="text" placeholder="Type author, book name, subject..."
                 id="myInput"

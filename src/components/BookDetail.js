@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import {findIndex} from "lodash";
 
 const BookDetail = (props) => {
-    console.log('9999',props);
-
+    var data = JSON.parse(localStorage.getItem('favoriteBooks'));
+    var index = findIndex(data, function(o) { return o.id === props.book.id });
     var onAddFavoriteCom = (book) => {
         props.onAddFavorite(book);
+    }
+    var onDeleteFavoriteCom = (book) => {
+        props.onDeleteFavorite(book);
     }
 
     var { book } = props;
@@ -35,10 +39,18 @@ const BookDetail = (props) => {
                             </div>
 
                         </div>
+                        { index === -1 ? 
                         <div className="btn btn-primary display-4  mt-20 mb-20  display-inline"
                             onClick={() => onAddFavoriteCom(book)}>
                             ADD FAVORITE
                           </div>
+                          : 
+                          <div className="btn btn-primary display-4  mt-20 mb-20  display-inline"
+                          onClick={() => onDeleteFavoriteCom(book)}
+                          >
+                          CANCEL FAVORITE
+                        </div>
+                          }
                         <Link
                             to={`/`}
                             className="btn btn-primary display-4 mr-10 mt-20  display-inline"

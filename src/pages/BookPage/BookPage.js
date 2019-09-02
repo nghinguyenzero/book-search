@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { actGetBookRequest } from "../../actions/index";
-import { actAddToFavorite } from '../../actions/index';
+import { actAddToFavorite, actDeleteToFavorite } from '../../actions/index';
 import BookDetail from "./../../components/BookDetail";
 
 class BookPage extends Component {
@@ -18,12 +18,17 @@ class BookPage extends Component {
       return ( <div>
         <BookDetail
           book={book={}?JSON.parse(localStorage.getItem('book')):book}
+          onAddFavorite={this.onAddFavorite}
+          onDeleteFavorite={this.onDeleteFavorite}
         />
         </div>
     );
   }
   onAddFavorite = (book) => {
     this.props.onAddFavorite(book);
+  }
+  onDeleteFavorite = (book) => {
+    this.props.onDeleteFavorite(book);
   }
 }
 
@@ -38,6 +43,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onAddFavorite: (book) => {
       dispatch(actAddToFavorite(book));
+    },
+    onDeleteFavorite: (book) => {
+      dispatch(actDeleteToFavorite(book));
     }
   }
 }

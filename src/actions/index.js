@@ -4,10 +4,10 @@ import {findIndex } from 'lodash';
 
 export const actFetchBooksRequest = (keyword) => {
     return (dispatch) => {
-        return callApi(keyword, 'GET', null).then(res => {
+        return callApi(keyword, 'GET', null).then(res => {  console.log('res',res);
             if(res){
                 dispatch(actFetchBooks(res.data.items));
-            }
+            } 
         })
     };
 }
@@ -22,6 +22,13 @@ export const actFetchBooks = (books) => {
 export const actAddToFavorite = (book) => {
     return {
         type: Types.ADD_FAVORITE_BOOKS,
+        book
+    };
+}
+
+export const actDeleteToFavorite = (book) => {
+    return {
+        type: Types.DELETE_FAVORITE_BOOKS,
         book
     };
 }

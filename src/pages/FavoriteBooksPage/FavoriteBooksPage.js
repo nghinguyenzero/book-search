@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import Books from './../../components/Books';
-import Book from './../../components/Book';
+import BookContainer from './../../containers/BookContainer';
 
 class FavoriteBooksPage extends Component {
   render() {
@@ -19,7 +19,7 @@ class FavoriteBooksPage extends Component {
     var result = null;
     if (favoriteBooks.length > 0) {
       result = favoriteBooks.map((book, index) => {
-        return (<Book
+        return (<BookContainer
           key={index}
           book={book}
           index={index}
